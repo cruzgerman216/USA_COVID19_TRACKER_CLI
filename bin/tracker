@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require './lib/USA_COVID19_TRACKER_CLI'
+
+CLI.new.run
