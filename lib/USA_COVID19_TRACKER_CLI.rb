@@ -8,7 +8,7 @@ module USACOVID19TRACKERCLI
 end
 
 require_relative "./state.rb"
-require_relative "./usa.rb"
+require_relative "./country.rb"
 require_relative "./USA_COVID19_TRACKER_CLI/cli"
 require_relative "./scraper.rb"
 
