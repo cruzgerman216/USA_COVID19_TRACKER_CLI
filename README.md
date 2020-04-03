@@ -1,3 +1,7 @@
+## Description
+
+The USA COVID-19 Tracker allows the user to see interesting facts about state wide covid-19 statistics. User will have a chance to see confirmed case and death toll comparisons between states.
+
 # USACOVID19TRACKERCLI
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/USA_COVID19_TRACKER_CLI`. To experiment with that code, run `bin/console` for an interactive prompt.
