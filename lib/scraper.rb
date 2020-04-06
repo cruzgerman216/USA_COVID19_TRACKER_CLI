@@ -14,25 +14,16 @@ class Scraper
     end
     
     def self.scrape_states 
-        doc = Nokogiri::HTML(open(URL))
-        statesarr = doc.css("tbody tr")
-        #51 due to 51 data entries that incldue a non-state "District of Columbia"
-        states_length = 51
-        i = 1
-        while i < states_length
-            name = statesarr[i].css("td")[0].text.split(" ").join(" ")
-
-            confirmed_cases = text_to_integer(statesarr[i].css("td")[1].text)
-            overall_deaths =  text_to_integer(statesarr[i].css("td")[3].text)
-           
-            if overall_deaths == "" 
-                overall_deaths = 0
+        covid_doc = Nokogiri::HTML(open(URL))
+        states_array_table = covid_doc.css("tbody tr")
+        states_array_table[1..51].each do |state_row_data|
+            state_name = state_row_data.css("td")[0].text.split(" ").join(" ")
+            overall_deaths_string = state_row_data.css("td")[3].text
+            overall_deaths_string == "" ? overall_deaths = 0 : overall_deaths = text_to_integer(overall_deaths_string)
+            confirmed_cases = text_to_integer(state_row_data.css("td")[1].text)
+            if state_name != "District Of Columbia " 
+                State.new(state_name, confirmed_cases, overall_deaths)
             end
-            
-            if name != "District Of Columbia" 
-                State.new(name, confirmed_cases, overall_deaths)
-            end
-            i += 1
         end
     end
 
