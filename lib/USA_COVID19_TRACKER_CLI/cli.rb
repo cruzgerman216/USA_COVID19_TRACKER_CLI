@@ -28,6 +28,7 @@ class CLI
             6. List from most to least confirmed cases by region 
             7. List from most to least confirmed deaths by region
             8. Overall U.S.A Statistics
+            9. Enter State Name
                Please enter 'exit' to stop program.
         DOC
     end
@@ -51,10 +52,10 @@ class CLI
             State.top_ten_least_confirmed_deaths
         when "6"
             puts "Most To Least Confirmed Cases By Region"
-            State.rank_most_confirmed_cases_by_region
+            State.rank_most_to_least_region("confirmed_cases")
         when "7"
             puts "Most To Least Confirmed Deaths By Region"
-            State.rank_most_overall_deaths_by_region
+            State.rank_most_to_least_region("overall_deaths")
         when "8"
             puts "Overall United States Statistics" 
             usadata = Scraper.scrape_usa

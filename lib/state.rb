@@ -86,22 +86,13 @@ class State
 
     end
 
-    def self.rank_most_confirmed_cases_by_region 
+    def self.rank_most_to_least_region(get_key)
+        key = get_key.to_sym
         us_region = [@@wregion, @@sregion, @@mregion, @@eregion]
-        arr = us_region.sort {|a,b| b[:confirmed_cases] <=> a[:confirmed_cases]}
+        arr = us_region.sort {|a,b| b[key] <=> a[key]}
         arr.each_with_index do |region,i|
             puts "#{i+1}. #{region[:name]}"
-            puts region[:confirmed_cases]
-            puts "------------------------"
-        end
-    end
-
-    def self.rank_most_overall_deaths_by_region 
-        us_region = [@@wregion, @@sregion, @@mregion, @@eregion]
-        arr = us_region.sort {|a,b| b[:overall_deaths] <=> a[:overall_deaths]}
-        arr.each_with_index do |region,i|
-            puts "#{i+1}. #{region[:name]}"
-            puts region[:overall_deaths]
+            puts region[key]
             puts "------------------------"
         end
     end

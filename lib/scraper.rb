@@ -9,11 +9,6 @@ class Scraper
         obj
     end
 
-    def self.text_to_integer(text)
-        text == "" ? output = 0 : output = text.gsub(/\s+/, "").tap { |s| s.delete!(',') }.to_i
-        output
-    end
-    
     def self.scrape_states 
         covid_doc = Nokogiri::HTML(open(URL))
         states_array_table = covid_doc.css("tbody tr")
@@ -27,4 +22,9 @@ class Scraper
         end
     end
 
+    def self.text_to_integer(text)
+        text == "" ? output = 0 : output = text.gsub(/\s+/, "").tap { |s| s.delete!(',') }.to_i
+        output
+    end
+    
 end
