@@ -10,7 +10,8 @@ class Scraper
     end
 
     def self.text_to_integer(text)
-        text.gsub(/\s+/, "").tap { |s| s.delete!(',') }.to_i
+        text == "" ? output = 0 : output = text.gsub(/\s+/, "").tap { |s| s.delete!(',') }.to_i
+        output
     end
     
     def self.scrape_states 
@@ -18,10 +19,9 @@ class Scraper
         states_array_table = covid_doc.css("tbody tr")
         states_array_table[1..51].each do |state_row_data|
             state_name = state_row_data.css("td")[0].text.split(" ").join(" ")
-            overall_deaths_string = state_row_data.css("td")[3].text
-            overall_deaths_string == "" ? overall_deaths = 0 : overall_deaths = text_to_integer(overall_deaths_string)
+            overall_deaths = text_to_integer(state_row_data.css("td")[3].text)
             confirmed_cases = text_to_integer(state_row_data.css("td")[1].text)
-            if state_name != "District Of Columbia " 
+            if state_name != "District Of Columbia" 
                 State.new(state_name, confirmed_cases, overall_deaths)
             end
         end
