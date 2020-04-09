@@ -20,14 +20,31 @@ class State
     def save 
         @@all << self
     end
-
+    def self.add_spaces(str)
+        str = str.to_s
+        get_space = 20 - str.length
+        spaces = "" 
+        (1..get_space).each{|i| spaces += " "}
+        getstr = str + spaces
+        getstr
+    end
+    def self.add_spaces_back_front(str)
+        str = str.to_s
+        get_space = 20 - str.length
+        spaces = "" 
+        (1..get_space/2).each{|i| spaces += " "}
+        
+        getstr = spaces + str + spaces
+        getstr
+    end
     def self.print_all
+        puts "#{State.add_spaces_back_front("USA State")} |#{State.add_spaces_back_front("Total Cases")} |#{State.add_spaces_back_front("Total Deaths")}"
+        puts "-------------------------------------------------------------------"
         State.all.each_with_index do |state, i|
-            puts "#{i+1}. #{state.name}"
-            puts "Confirmed Cases: #{state.confirmed_cases}"
-            puts "Deaths: #{state.overall_deaths}"
+            puts "#{State.add_spaces((i+1).to_s + ". " + state.name)}| #{State.add_spaces(state.confirmed_cases)}| #{State.add_spaces(state.overall_deaths)}"
         end
     end
+
 
     def self.top_ten_confirmed_cases
         State.all.each_with_index do |state, i|

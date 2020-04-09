@@ -38,7 +38,6 @@ class CLI
         result = option
         case option 
         when "1"
-            puts "Top Ten Most Confirmed Cases"
             State.print_all
         when "2"
             puts "Top Ten Most Confirmed Cases"
