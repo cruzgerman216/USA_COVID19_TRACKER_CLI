@@ -14,7 +14,8 @@ class CLI
         puts "Please choose an option: "
         list_options
         input = gets.strip.downcase
-        choose_option(input)
+        getinput = choose_option(input)
+        getinput ? input = getinput : input
         return input
     end
 
@@ -34,6 +35,7 @@ class CLI
     end
 
     def choose_option(option)
+        result = option
         case option 
         when "1"
             puts "Top Ten Most Confirmed Cases"
@@ -62,7 +64,19 @@ class CLI
             puts "Confirmed Cases: #{usadata[:confirmed_cases]}"
             puts "Deaths: #{usadata[:overall_deaths]}"
             puts "Recoveries: #{usadata[:overall_recovered]}"
+        when "9"
+            puts "Please enter the state name you like to find"
+            input = gets.strip.downcase.to_str
+            State.find_by_name(input)
         end
+        result
+    end
+
+    def prompt 
+        puts "For more information type 'back'."
+        puts "To exit the program, type 'exit'."
+        input = gets.strip.downcase.to_str
+        result = input
     end
     def scrape
         Scraper.scrape_states

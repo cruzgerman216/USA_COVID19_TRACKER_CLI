@@ -9,6 +9,7 @@ class Scraper
         obj
     end
 
+    #scraping data of state information
     def self.scrape_states 
         covid_doc = Nokogiri::HTML(open(URL))
         states_array_table = covid_doc.css("tbody tr")
@@ -17,11 +18,12 @@ class Scraper
             overall_deaths = text_to_integer(state_row_data.css("td")[3].text)
             confirmed_cases = text_to_integer(state_row_data.css("td")[1].text)
             if state_name != "District Of Columbia" 
-                State.new(state_name, confirmed_cases, overall_deaths)
+                State.new(name: state_name, confirmed_cases: confirmed_cases, overall_deaths: overall_deaths)
             end
         end
     end
 
+    # removing commas, empty spaces, turn string into integer
     def self.text_to_integer(text)
         text == "" ? output = 0 : output = text.gsub(/\s+/, "").tap { |s| s.delete!(',') }.to_i
         output

@@ -7,10 +7,8 @@ class State
     @@mregion = {name: "Midwest Region", confirmed_cases: 0, overall_deaths: 0}
     @@eregion = {name: "East Region", confirmed_cases: 0, overall_deaths: 0}
 
-    def initialize(name, confirmed_cases, overall_deaths )
-        @name = name
-        @confirmed_cases = confirmed_cases
-        @overall_deaths = overall_deaths
+    def initialize(attributes)
+        attributes.each {|key, value| self.send(("#{key}="), value)}
         save
         add_to_region
     end
@@ -94,6 +92,17 @@ class State
             puts "#{i+1}. #{region[:name]}"
             puts region[key]
             puts "------------------------"
+        end
+    end
+
+    def self.find_by_name(state_name)
+        result = State.all.find {|state| state.name.downcase == state_name}
+        if result 
+            puts "Here is info on #{result.name}"
+            puts "Confirmed Cases: #{result.confirmed_cases}"
+            puts "Overall Deaths: #{result.overall_deaths}"
+        else 
+            puts "#{state_name} does not exist."
         end
     end
 
