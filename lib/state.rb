@@ -1,4 +1,8 @@
+require_relative "./concerns/grabable"
+
 class State 
+    include Grabable::InstanceMethods
+    extend Grabable::ClassMethods
     attr_accessor :name, :confirmed_cases, :overall_deaths
 
     @@all = []
@@ -12,14 +16,10 @@ class State
         save
         add_to_region
     end
-
     def self.all 
         @@all
     end
 
-    def save 
-        @@all << self
-    end
     def self.add_spaces(str)
         str = str.to_s
         get_space = 20 - str.length
@@ -33,50 +33,8 @@ class State
         get_space = 20 - str.length
         spaces = "" 
         (1..get_space/2).each{|i| spaces += " "}
-        
         getstr = spaces + str + spaces
         getstr
-    end
-    def self.print_all
-        puts "#{State.add_spaces_back_front("USA State")} |#{State.add_spaces_back_front("Total Cases")} |#{State.add_spaces_back_front("Total Deaths")}"
-        puts "-------------------------------------------------------------------"
-        State.all.each_with_index do |state, i|
-            puts "#{State.add_spaces((i+1).to_s + ". " + state.name)}| #{State.add_spaces(state.confirmed_cases)}| #{State.add_spaces(state.overall_deaths)}"
-        end
-    end
-
-
-    def self.top_ten_confirmed_cases
-        State.all.each_with_index do |state, i|
-            puts "#{i+1}. #{state.name}"
-            puts "Confirmed Cases: #{state.confirmed_cases}"
-            break unless i != 9
-        end
-    end
-
-    def self.top_ten_least_confirmed_cases
-         State.all[40..-1].reverse.each_with_index do |state,i|
-            puts "#{i+1}. #{state.name}"
-            puts "Confirmed Cases: #{state.confirmed_cases}"
-         end
-    end
-
-
-    def self.top_ten_confirmed_deaths
-        arr =  @@all.sort {|a,b| b.overall_deaths <=> a.overall_deaths}
-        arr.each_with_index do |state, i|
-            puts "#{i+1}. #{state.name}"
-            puts "Confirmed Deaths: #{state.overall_deaths}"
-            break unless i != 9
-        end
-    end
-
-    def self.top_ten_least_confirmed_deaths
-        arr = @@all.sort {|a,b| b.overall_deaths <=> a.overall_deaths}
-        arr[40..-1].reverse.each_with_index do |state,i|
-            puts "#{i+1}. #{state.name}"
-            puts "Confirmed Deaths: #{state.overall_deaths}"
-        end
     end
 
     def add_to_region
@@ -102,24 +60,12 @@ class State
     end
 
     def self.rank_most_to_least_region(get_key)
+        puts "#{State.add_spaces_back_front("Region")}|#{State.add_spaces_back_front("Total Cases")}"
         key = get_key.to_sym
         us_region = [@@wregion, @@sregion, @@mregion, @@eregion]
         arr = us_region.sort {|a,b| b[key] <=> a[key]}
         arr.each_with_index do |region,i|
-            puts "#{i+1}. #{region[:name]}"
-            puts region[key]
-            puts "------------------------"
-        end
-    end
-
-    def self.find_by_name(state_name)
-        result = State.all.find {|state| state.name.downcase == state_name}
-        if result 
-            puts "Here is info on #{result.name}"
-            puts "Confirmed Cases: #{result.confirmed_cases}"
-            puts "Overall Deaths: #{result.overall_deaths}"
-        else 
-            puts "#{state_name} does not exist."
+            puts "#{State.add_spaces((i+1).to_s + ". " + region[:name])}| #{State.add_spaces(region[key])}"
         end
     end
 

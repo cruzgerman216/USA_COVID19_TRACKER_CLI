@@ -1,7 +1,6 @@
 require 'open-uri'
 require 'nokogiri'
 require_relative "./USA_COVID19_TRACKER_CLI/version"
-
 module USACOVID19TRACKERCLI
   class Error < StandardError; end
   # Your code goes here...
