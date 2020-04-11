@@ -1,7 +1,9 @@
 require_relative "./concerns/grabable"
+require_relative "./concerns/printable"
 
 class State 
     include Grabable::InstanceMethods
+    extend Printable::ClassMethods
     extend Grabable::ClassMethods
     attr_accessor :name, :confirmed_cases, :overall_deaths
 
@@ -18,23 +20,6 @@ class State
     end
     def self.all 
         @@all
-    end
-
-    def self.add_spaces(str)
-        str = str.to_s
-        get_space = 20 - str.length
-        spaces = "" 
-        (1..get_space).each{|i| spaces += " "}
-        getstr = str + spaces
-        getstr
-    end
-    def self.add_spaces_back_front(str)
-        str = str.to_s
-        get_space = 20 - str.length
-        spaces = "" 
-        (1..get_space/2).each{|i| spaces += " "}
-        getstr = spaces + str + spaces
-        getstr
     end
 
     def add_to_region
@@ -59,14 +44,23 @@ class State
 
     end
 
-    def self.rank_most_to_least_region(get_key)
+    def self.region_rank_most_to_least_cases
         puts "#{State.add_spaces_back_front("Region")}|#{State.add_spaces_back_front("Total Cases")}"
-        key = get_key.to_sym
+        puts "---------------------------------------------"
         us_region = [@@wregion, @@sregion, @@mregion, @@eregion]
-        arr = us_region.sort {|a,b| b[key] <=> a[key]}
+        arr = us_region.sort {|a,b| b[:confirmed_cases] <=> a[:confirmed_cases]}
         arr.each_with_index do |region,i|
-            puts "#{State.add_spaces((i+1).to_s + ". " + region[:name])}| #{State.add_spaces(region[key])}"
+            puts "#{State.add_spaces((i+1).to_s + ". " + region[:name])}| #{State.add_spaces(add_commas(region[:confirmed_cases]))}"
         end
     end
 
+    def self.region_rank_most_to_least_deaths
+        puts "#{State.add_spaces_back_front("Region")}|#{State.add_spaces_back_front("Total Cases")}"
+        puts "---------------------------------------------"
+        us_region = [@@wregion, @@sregion, @@mregion, @@eregion]
+        arr = us_region.sort {|a,b| b[:overall_deaths] <=> a[:overall_deaths]}
+        arr.each_with_index do |region,i|
+            puts "#{State.add_spaces((i+1).to_s + ". " + region[:name])}| #{State.add_spaces(add_commas(region[:overall_deaths]))}"
+        end
+    end
 end

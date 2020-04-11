@@ -1,5 +1,6 @@
 class CLI 
     def run
+        system("clear")
         greeting
         scrape
         while menu != 'exit'
@@ -53,10 +54,10 @@ class CLI
             State.top_ten_least_confirmed_deaths
         when "6"
             puts "Most To Least Confirmed Cases By Region"
-            State.rank_most_to_least_region("confirmed_cases")
+            State.region_rank_most_to_least_cases
         when "7"
             puts "Most To Least Confirmed Deaths By Region"
-            State.rank_most_to_least_region("overall_deaths")
+            State.region_rank_most_to_least_deaths
         when "8"
             puts "Overall United States Statistics" 
             usadata = Scraper.scrape_usa

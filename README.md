@@ -1,6 +1,6 @@
 ## Description
 
-The USA COVID-19 Tracker allows the user to see interesting facts about state wide covid-19 statistics. User will have a chance to see confirmed case and death toll comparisons between states.
+The USA COVID-19 Tracker allows the user to see interesting facts about state wide covid-19 statistics. User will have a chance to see confirmed case and death toll comparisons between states. To execute the tracker, enter 'bin/tracker'.
 
 # USACOVID19TRACKERCLI
 
