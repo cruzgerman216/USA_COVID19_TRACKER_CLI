@@ -1,4 +1,5 @@
 class CLI 
+    # greets user, scrapes info, runs CLI
     def run
         system("clear")
         greeting
@@ -7,10 +8,12 @@ class CLI
         end
     end
 
+    # Greets user when runs program
     def greeting 
         puts "Hello! Welcome to State-wide Covid 19 Stats! Here is a list of options you can choose from."
     end
 
+    # Display menu, returns user input
     def menu 
         puts "Please choose an option: "
         list_options
@@ -20,6 +23,7 @@ class CLI
         return input
     end
 
+    # Prints out menu for user
     def list_options 
         puts <<-DOC.gsub /^\s*/, ''
             1. List all states to get individual statistics
@@ -35,6 +39,7 @@ class CLI
         DOC
     end
 
+    # runs a specific task based on user input
     def choose_option(option)
         result = option
         case option 
@@ -72,12 +77,7 @@ class CLI
         result
     end
 
-    def prompt 
-        puts "For more information type 'back'."
-        puts "To exit the program, type 'exit'."
-        input = gets.strip.downcase.to_str
-        result = input
-    end
+    # Scrapes state info
     def scrape
         Scraper.scrape_states
     end

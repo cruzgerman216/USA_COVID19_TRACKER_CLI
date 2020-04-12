@@ -1,5 +1,7 @@
 module Printable
     module ClassMethods
+
+        # Adds Spaces to headers in style print
         def add_spaces(str)
             str = str.to_s
             get_space = 20 - str.length
@@ -8,6 +10,8 @@ module Printable
             getstr = str + spaces
             getstr
         end
+
+        # Adds Spaces to data entries in style print 
         def add_spaces_back_front(str)
             str = str.to_s
             get_space = 20 - str.length
@@ -17,6 +21,7 @@ module Printable
             getstr
         end
 
+        # Adds commas in string
         def add_commas(int)
             str = int.to_s
             str.reverse.scan(/\d{3}|.+/).join(",").reverse
