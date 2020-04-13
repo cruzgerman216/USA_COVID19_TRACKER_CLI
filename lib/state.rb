@@ -1,27 +1,21 @@
 require_relative "./concerns/grabable"
 require_relative "./concerns/printable"
-
-class State 
-    include Grabable::InstanceMethods
-    extend Printable::ClassMethods
-    extend Grabable::ClassMethods
-    attr_accessor :name, :confirmed_cases, :overall_deaths
-
-    @@all = []
+require_relative "./country.rb"
+class State < Country
+    @@states = []
     @@wregion = {name: "West Region", confirmed_cases: 0, overall_deaths: 0}
     @@sregion = {name: "South Region", confirmed_cases: 0, overall_deaths: 0}
     @@mregion = {name: "Midwest Region", confirmed_cases: 0, overall_deaths: 0}
     @@eregion = {name: "East Region", confirmed_cases: 0, overall_deaths: 0}
-
+    
     def initialize(attributes)
-        attributes.each {|key, value| self.send(("#{key}="), value)}
-        save
+        super
         add_to_region
     end
-    def self.all 
-        @@all
-    end
 
+    def self.all 
+        @@states
+    end
     # instance will add to region class variable confirmed cases and overall deaths based on region
     def add_to_region
         western_states = ["Arizona", "Colorado", "Idaho", "Montana", "Nevada", "New Mexico", "Utah", "Wyoming", "Alaska", "California", "Hawaii", "Oregon", "Washington"]
@@ -64,4 +58,5 @@ class State
             puts "#{State.add_spaces((i+1).to_s + ". " + region[:name])}| #{State.add_spaces(add_commas(region[:overall_deaths]))}"
         end
     end
+    
 end

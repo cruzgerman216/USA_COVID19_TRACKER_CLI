@@ -1,12 +1,13 @@
-
 class Scraper 
     URL = "https://www.worldometers.info/coronavirus/country/us/"
 
     def self.scrape_usa 
         doc = Nokogiri::HTML(open(URL))
-        usadata = doc.css(".content-inner .maincounter-number")
-        obj = {:confirmed_cases => usadata[0].text.gsub(/\s+/, ""), :overall_deaths => usadata[1].text.gsub(/\s+/, ""), :overall_recovered => usadata[2].text.gsub(/\s+/, "")}
-        obj
+        country_table = doc.css(".content-inner .maincounter-number")
+        country_confirmed_cases = text_to_integer(country_table[0].text.gsub(/\s+/, ""))
+        country_overall_deaths = text_to_integer(country_table[1].text.gsub(/\s+/, ""))
+        country_recoveries = text_to_integer(country_table[2].text.gsub(/\s+/, ""))
+         Country.new(name: "USA", confirmed_cases: country_confirmed_cases, overall_deaths: country_overall_deaths, recoveries: country_recoveries)
     end
 
     #scraping data of state information

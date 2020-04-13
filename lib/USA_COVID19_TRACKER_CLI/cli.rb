@@ -65,10 +65,7 @@ class CLI
             State.region_rank_most_to_least_deaths
         when "8"
             puts "Overall United States Statistics" 
-            usadata = Scraper.scrape_usa
-            puts "Confirmed Cases: #{usadata[:confirmed_cases]}"
-            puts "Deaths: #{usadata[:overall_deaths]}"
-            puts "Recoveries: #{usadata[:overall_recovered]}"
+            Country.find_by_name("usa")
         when "9"
             puts "Please enter the state name you like to find"
             input = gets.strip.downcase.to_str
@@ -79,6 +76,7 @@ class CLI
 
     # Scrapes state info
     def scrape
+        Scraper.scrape_usa
         Scraper.scrape_states
     end
 end
