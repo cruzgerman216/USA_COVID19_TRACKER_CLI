@@ -6,12 +6,11 @@ module Grabable
             self.class.all << self
             all = self.class.all.sort {|a,b| a.name <=> b.name}
         end
-
     end
 
-    module ClassMethods
+    module Statistics
         # Prints all state information
-        include Printable::ClassMethods
+        include Printable::Styles
 
         def print_all
             puts "#{self.add_spaces_back_front("USA State")} |#{self.add_spaces_back_front("Total Cases")} |#{self.add_spaces_back_front("Total Deaths")}"
@@ -19,6 +18,7 @@ module Grabable
             self.all.each_with_index do |state, i|
                 puts "#{self.add_spaces((i+1).to_s + ". " + state.name)}| #{self.add_spaces(add_commas(state.confirmed_cases))}| #{self.add_spaces(add_commas(state.overall_deaths))}"
             end
+            self.all
         end
 
         # Prints top ten states with the most cases
@@ -30,6 +30,7 @@ module Grabable
                 puts "#{self.add_spaces((i+1).to_s + ". " + state.name)}| #{self.add_spaces(add_commas(state.confirmed_cases))}"
                 break unless i != 9
             end
+            arr
         end
 
         # Prints top ten states with the least cases
@@ -40,6 +41,7 @@ module Grabable
             arr[40..-1].reverse.each_with_index do |state,i|
                 puts "#{self.add_spaces((i+1).to_s + ". " + state.name)}| #{self.add_spaces(add_commas(state.confirmed_cases))}"
              end
+             arr
         end
         
         # Prints top ten states with the most deaths
@@ -51,6 +53,7 @@ module Grabable
                 puts "#{self.add_spaces((i+1).to_s + ". " + state.name)}| #{self.add_spaces(add_commas(state.overall_deaths))}"
                 break unless i != 9
             end
+            arr
         end
 
         # Prints top ten states with the least deaths
@@ -61,6 +64,7 @@ module Grabable
             arr[40..-1].reverse.each_with_index do |state,i|
                 puts "#{self.add_spaces((i+1).to_s + ". " + state.name)}| #{self.add_spaces(add_commas(state.overall_deaths))}"
             end
+            arr
         end
 
         # Finds state by name
@@ -76,6 +80,7 @@ module Grabable
                 input = gets.strip.downcase.to_str
                 input != 'exit' ? find_by_name(input) : nil
             end
+            result
         end
     end
     

@@ -3,7 +3,7 @@ require_relative "./concerns/printable"
 
 class Country 
     include Grabable::InstanceMethods
-    extend Grabable::ClassMethods
+    extend Grabable::Statistics
     attr_accessor :name, :confirmed_cases, :overall_deaths, :recoveries
 
     

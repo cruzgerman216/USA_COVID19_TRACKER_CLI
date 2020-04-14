@@ -1,16 +1,19 @@
 require_relative "./concerns/printable"
 
 class Scraper 
-    extend Printable::ClassMethods
+    extend Printable::Styles
     URL = "https://www.worldometers.info/coronavirus/country/us/"
 
+    #scraping data of USA information
     def self.scrape_usa 
         doc = Nokogiri::HTML(open(URL))
-        country_table = doc.css(".content-inner .maincounter-number")
-        country_confirmed_cases = text_to_integer(country_table[0].text.gsub(/\s+/, ""))
-        country_overall_deaths = text_to_integer(country_table[1].text.gsub(/\s+/, ""))
-        country_recoveries = text_to_integer(country_table[2].text.gsub(/\s+/, ""))
-         Country.new(name: "USA", confirmed_cases: country_confirmed_cases, overall_deaths: country_overall_deaths, recoveries: country_recoveries)
+
+        country_main = doc.css(".content-inner .maincounter-number")
+        country_confirmed_cases = text_to_integer(country_main[0].text.gsub(/\s+/, ""))
+        country_overall_deaths = text_to_integer(country_main[1].text.gsub(/\s+/, ""))
+        country_recoveries = text_to_integer(country_main[2].text.gsub(/\s+/, ""))
+
+        Country.new(name: "USA", confirmed_cases: country_confirmed_cases, overall_deaths: country_overall_deaths, recoveries: country_recoveries)
     end
 
     #scraping data of state information
@@ -26,4 +29,5 @@ class Scraper
             end
         end
     end
+
 end

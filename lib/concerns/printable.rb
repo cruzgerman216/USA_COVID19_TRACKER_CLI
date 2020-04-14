@@ -1,5 +1,5 @@
 module Printable
-    module ClassMethods
+    module Styles
         # Adds Spaces to headers in style print
         def add_spaces(str)
             str = str.to_s

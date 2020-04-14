@@ -9,13 +9,15 @@ class State < Country
     @@eregion = {name: "East Region", confirmed_cases: 0, overall_deaths: 0}
     
     def initialize(attributes)
-        super
+         attributes.each {|key, value| self.send(("#{key}="), value)}
+        save
         add_to_region
     end
 
     def self.all 
         @@states
     end
+    
     # instance will add to region class variable confirmed cases and overall deaths based on region
     def add_to_region
         western_states = ["Arizona", "Colorado", "Idaho", "Montana", "Nevada", "New Mexico", "Utah", "Wyoming", "Alaska", "California", "Hawaii", "Oregon", "Washington"]
@@ -47,6 +49,7 @@ class State < Country
         arr.each_with_index do |region,i|
             puts "#{State.add_spaces((i+1).to_s + ". " + region[:name])}| #{State.add_spaces(add_commas(region[:confirmed_cases]))}"
         end
+        arr
     end
 
     def self.region_rank_most_to_least_deaths
@@ -57,6 +60,7 @@ class State < Country
         arr.each_with_index do |region,i|
             puts "#{State.add_spaces((i+1).to_s + ". " + region[:name])}| #{State.add_spaces(add_commas(region[:overall_deaths]))}"
         end
+        arr
     end
     
 end

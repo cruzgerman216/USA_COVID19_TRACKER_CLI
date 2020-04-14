@@ -6,11 +6,16 @@ class CLI
         scrape
         while menu != 'exit'
         end
+        end_program
     end
 
     # Greets user when runs program
     def greeting 
         puts "Hello! Welcome to State-wide Covid 19 Stats! Here is a list of options you can choose from."
+    end
+
+    def end_program
+        puts "Goodbye!"
     end
 
     # Display menu, returns user input
@@ -40,7 +45,6 @@ class CLI
 
     # runs a specific task based on user input
     def choose_option(option)
-        result = option
         case option 
         when "1"
             State.print_all
@@ -70,7 +74,6 @@ class CLI
             input = gets.strip.downcase.to_str
             State.find_by_name(input)
         end
-        result
     end
 
     # Scrapes state info
