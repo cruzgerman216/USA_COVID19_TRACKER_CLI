@@ -18,8 +18,7 @@ class CLI
         puts "Please choose an option: "
         list_options
         input = gets.strip.downcase
-        getinput = choose_option(input)
-        getinput ? input = getinput : input
+        choose_option(input)
         return input
     end
 

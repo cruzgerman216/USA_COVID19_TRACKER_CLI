@@ -11,7 +11,7 @@ module Grabable
 
     module ClassMethods
         # Prints all state information
-    include Printable::ClassMethods
+        include Printable::ClassMethods
 
         def print_all
             puts "#{self.add_spaces_back_front("USA State")} |#{self.add_spaces_back_front("Total Cases")} |#{self.add_spaces_back_front("Total Deaths")}"

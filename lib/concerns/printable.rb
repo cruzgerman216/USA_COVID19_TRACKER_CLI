@@ -1,6 +1,5 @@
 module Printable
     module ClassMethods
-
         # Adds Spaces to headers in style print
         def add_spaces(str)
             str = str.to_s
@@ -25,6 +24,12 @@ module Printable
         def add_commas(int)
             str = int.to_s
             str.reverse.scan(/\d{3}|.+/).join(",").reverse
+        end
+
+        # removing commas, empty spaces, turn string into integer
+        def text_to_integer(text)
+            text == "" ? output = 0 : output = text.gsub(/\s+/, "").tap { |s| s.delete!(',') }.to_i
+            output
         end
     end
 end

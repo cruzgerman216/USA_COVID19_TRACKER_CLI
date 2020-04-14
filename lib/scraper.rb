@@ -1,4 +1,7 @@
+require_relative "./concerns/printable"
+
 class Scraper 
+    extend Printable::ClassMethods
     URL = "https://www.worldometers.info/coronavirus/country/us/"
 
     def self.scrape_usa 
@@ -23,11 +26,4 @@ class Scraper
             end
         end
     end
-
-    # removing commas, empty spaces, turn string into integer
-    def self.text_to_integer(text)
-        text == "" ? output = 0 : output = text.gsub(/\s+/, "").tap { |s| s.delete!(',') }.to_i
-        output
-    end
-    
 end
