@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require './lib/USA_COVID19_TRACKER_CLI'
+require_relative '../lib/USA_COVID19_TRACKER_CLI'
 
 CLI.new.run

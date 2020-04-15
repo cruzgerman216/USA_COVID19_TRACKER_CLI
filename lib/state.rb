@@ -9,8 +9,7 @@ class State < Country
     @@eregion = {name: "East Region", confirmed_cases: 0, overall_deaths: 0}
     
     def initialize(attributes)
-         attributes.each {|key, value| self.send(("#{key}="), value)}
-        save
+        super
         add_to_region
     end
 
